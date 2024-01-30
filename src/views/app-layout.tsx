@@ -1,1 +1,15 @@
-import React from "react";import {Link, Outlet} from "react-router-dom";import {Button} from "@mui/material";import {ROUTE_CONSTANTS} from "../resources/routes";export const AppLayout: React.FC = () => {return (  <div>    <nav className={"navbar navbar-expand-lg bg-body-secondary"}>      <div className={"container-fluid"}>        <Link to="/" className={"navbar-brand"}>Rent Apartments</Link>        <Button variant="contained" className={"navbar-toggler"}>          <span className="navbar-toggler-icon"></span>        </Button>        <div className={"collapse navbar-collapse"} id="navbarSupportedContent">          <ul className={"navbar-nav me-auto mb-2 mb-lg-0"}>            <li className={"nav-item"}>              <Link to={ROUTE_CONSTANTS.HOME} className={"navbar-brand"}>Home</Link>            </li>            <li className={"nav-item"}>              <Link to={ROUTE_CONSTANTS.LOGIN} className={"navbar-brand"}>Login</Link>            </li>          </ul>        </div>      </div>    </nav>    <Outlet />  </div>  );};
+import React from "react";
+import {Outlet} from "react-router-dom";
+import {MenuNavBar} from "../components/menu-nav-bar";
+
+export const AppLayout: React.FC = () => {
+return (
+  <div>
+    <MenuNavBar />
+
+    <div className={"container my-3"}>
+      <Outlet />
+    </div>
+  </div>
+  );
+};
