@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { Apartment } from "../queries/types";
 import { ApartmentCard } from "./apartment-card";
+import { ApartmentFilter, ApartmentFilterHeader } from "./apartment-filter-header";
 
 export const ApartmentTileDetails: React.FunctionComponent = () => {
   // const allApartmentQueryFn = async ({ queryKey }) => {
@@ -9,20 +10,31 @@ export const ApartmentTileDetails: React.FunctionComponent = () => {
   //   return data;
   // }
   const [data, setData] = React.useState<Apartment[]>([]);
+  const [filter, setFilter ] = useState<ApartmentFilter>({});
+
 
   React.useEffect(() => {
-    axios.get('http://localhost:8080/apartments').then((res) => {
+    let url = `http://localhost:8080/apartments`;
+    axios.get(url, {
+      params: filter
+    }).then((res) => {
       setData(res.data);
     });
-  });
+  }, [filter]);
 
   return (
-    <div className={"row"}>
-      {data ? data.map(apartment =>
-        <div className="col-sm-6 col-md-4 col-lg-2">
-          {ApartmentCard({apartment})}
-        </div> ) :
-        <div></div>}
+    <div>
+      <ApartmentFilterHeader
+        filter={filter}
+        setFilter={setFilter}
+      />
+      <div className={"row"}>
+        {data ? data.map(apartment =>
+          <div key={apartment.id} className="col-sm-6 col-md-4 col-lg-2">
+            {ApartmentCard({apartment})}
+          </div> ) :
+          <div></div>}
+      </div>
     </div>
   );
 };

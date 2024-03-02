@@ -1,6 +1,6 @@
 import React from "react";
-import {Button} from "@mui/material";
-import {ROUTE_CONSTANTS} from "../resources/routes";
+import { Button } from "@mui/material";
+import { ROUTE_CONSTANTS } from "../resources/routes";
 
 
 export const LoginMenu: React.FunctionComponent = () => {
