@@ -9,8 +9,13 @@ export const ApartmentTileDetails: React.FunctionComponent = () => {
   //   const { data } = await axios.get(`http://localhost:8080/apartments`{queryKey[0]});
   //   return data;
   // }
-  const [data, setData] = React.useState<Apartment[]>([]);
-  const [filter, setFilter ] = useState<ApartmentFilter>({});
+  const [data, setData] = useState<Apartment[]>([]);
+  const [filter, setFilter ] = useState<ApartmentFilter>({
+    "description": "",
+    "bedrooms": "0+",
+    "bathrooms": "0+",
+    "hasParking": false
+  });
 
 
   React.useEffect(() => {
