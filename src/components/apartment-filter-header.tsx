@@ -2,26 +2,25 @@ import React from "react";
 import { Checkbox, FormControlLabel, InputLabel, MenuItem, Select, TextField } from "@mui/material";
 
 export interface ApartmentFilter {
-  bedrooms?: string,
-  bathrooms?: string,
+  bedrooms: string,
+  bathrooms: string,
   minArea?: number,
   maxArea?: number,
-  hasParking?: boolean,
+  hasParking: boolean,
   minPrice?: number,
   maxPrice?: number,
-  description?: string,
+  description: string,
 }
 
 interface ApartmentFilterHeaderProps {
   filter: ApartmentFilter,
-  setFilter: (ap: ApartmentFilter) => void,
+  setFilter: (filter: ApartmentFilter) => void,
 }
 
-export const ApartmentFilterHeader: React.FunctionComponent<ApartmentFilterHeaderProps> = (
-  {filter, setFilter }
+export const ApartmentFilterHeader: React.FC<ApartmentFilterHeaderProps> = (
+  {filter, setFilter}
 ) => {
-
-  return <div className={"py-4 "}>
+  return <div className={"py-4"}>
     <div className={"row py-2 align-content-between"}>
       <div className={"col align-content-around"}>
         <TextField
@@ -30,9 +29,8 @@ export const ApartmentFilterHeader: React.FunctionComponent<ApartmentFilterHeade
           label={"Filter:"}
           type="text"
           placeholder="Description contains..."
-          value={(filter && filter.description) ? filter.description : ""}
-          onChange={(e) => setFilter({...filter,
-            description: e.target.value})}
+          value={filter.description}
+          onChange={e=> setFilter({...filter, description: e.target.value})}
         />
       </div>
       <div className={"col"}>
@@ -42,11 +40,7 @@ export const ApartmentFilterHeader: React.FunctionComponent<ApartmentFilterHeade
             <Checkbox
               className={"px-2"}
               name="parkingFilter"
-              onChange={
-                (e) => {
-                  setFilter({...filter, hasParking: e.target.checked})
-                }
-              }
+              onChange={e=> setFilter({...filter, hasParking: e.target.checked})}
             />}
           label={"has parking"}
           labelPlacement="end"
@@ -58,8 +52,8 @@ export const ApartmentFilterHeader: React.FunctionComponent<ApartmentFilterHeade
         <InputLabel variant="standard" htmlFor="bedrooms-label">Bedrooms:</InputLabel>
         <Select
           className={"form-select form-select-sm"}
-          value={filter.bedrooms ? filter.bedrooms : "0+"}
-          onChange={(e) => setFilter({...filter, bedrooms: e.target.value})}
+          value={filter.bedrooms}
+          onChange={e => setFilter({...filter, bedrooms: e.target.value})}
           defaultValue={"0+"}
           labelId={'bedrooms-label'}
           variant={"outlined"}
@@ -79,8 +73,8 @@ export const ApartmentFilterHeader: React.FunctionComponent<ApartmentFilterHeade
         <InputLabel variant="standard" id="bathrooms-label">Bathrooms:</InputLabel>
         <Select
           className={"form-select form-select-sm"}
-          value={filter.bathrooms ? filter.bathrooms : "0+"}
-          onChange={(e) => setFilter({...filter, bathrooms: e.target.value})}
+          value={filter.bathrooms}
+          onChange={e=> setFilter({...filter, bathrooms: e.target.value})}
           labelId={"bathrooms-label"}
           variant={"outlined"}>
           <MenuItem value={"0+"} selected={true}>Any</MenuItem>
@@ -100,17 +94,17 @@ export const ApartmentFilterHeader: React.FunctionComponent<ApartmentFilterHeade
         <div className="input-group mb-3">
           <TextField
             className={"form-control my-3 px-1"}
+            error={(filter.maxArea && filter.minArea) ? filter.maxArea < filter.minArea : false }
+            helperText={(filter.maxArea && filter.minArea && filter.maxArea < filter.minArea) ? "Max Area is less than minimum" : ""}
             variant={"outlined"}
             label={"Maximum Area:"}
             name="maxArea"
             type="number"
-            placeholder="Maximum Area"
-            value={(filter && filter.maxArea) ? filter.maxArea : 0}
+            placeholder="Maximum"
+            value={filter.maxArea ? filter.maxArea : undefined}
             onChange={(e) => {
-              const maxArea = parseFloat(e.target.value);
-              if (filter.maxArea !== maxArea) {
-                setFilter({...filter, maxArea: maxArea > 0 ? maxArea : 0})
-              }
+              const maxArea = isNaN(parseFloat(e.target.value)) ? undefined : parseFloat(e.target.value);
+              setFilter({...filter, maxArea: maxArea })
             }}
           />
           <span className="input-group-text my-3">.00</span>
@@ -118,17 +112,17 @@ export const ApartmentFilterHeader: React.FunctionComponent<ApartmentFilterHeade
         <div className="input-group mb-3">
           <TextField
             className={"form-control my-3 px-1"}
+            error={(filter.maxArea && filter.minArea) ? filter.maxArea < filter.minArea : false}
+            helperText={(filter.maxArea && filter.minArea && filter.maxArea < filter.minArea) ? "Max Area is less than minimum" : ""}
             variant={"outlined"}
             label={"Minimum Area:"}
             name="minArea"
             type="number"
-            placeholder="Minimum Area"
-            value={(filter && filter.minArea) ? filter.minArea : 0}
+            placeholder="Minimum"
+            value={(filter.minArea ? filter.minArea : undefined)}
             onChange={(e) => {
-              const minArea = parseFloat(e.target.value);
-              if (filter.minArea !== minArea) {
-                setFilter({...filter, minArea: minArea > 0 ? minArea : 0})
-              }
+              const minArea = isNaN(parseFloat(e.target.value)) ? undefined : parseFloat(e.target.value);
+              setFilter({...filter, minArea: minArea })
             }}
           />
           <span className="input-group-text my-3">.00</span>
@@ -138,19 +132,17 @@ export const ApartmentFilterHeader: React.FunctionComponent<ApartmentFilterHeade
         <div className="input-group mb-3">
           <TextField
             className={"form-control my-3 px-1"}
-            error={(filter.minPrice && filter.maxPrice) ? filter.maxPrice < filter.minPrice : false}
-            helperText={(filter.minPrice && filter.maxPrice && (filter.maxPrice < filter.minPrice)) ? "Max Price is less than minimum" : ""}
+            error={(filter.maxPrice && filter.minPrice) ? filter.maxPrice < filter.minPrice : false}
+            helperText={(filter.maxPrice && filter.minPrice && filter.maxPrice < filter.minPrice) ? "Max Price is less than minimum" : ""}
             variant={"outlined"}
             name="maxPrice"
             label={"Maximum Price:"}
             type="number"
-            placeholder="Maximum Price"
-            value={(filter && filter.maxPrice) ? filter.maxPrice : 0}
+            placeholder="Maximum"
+            value={filter.maxPrice}
             onChange={(e) => {
               const maxPrice = parseFloat(e.target.value);
-              if (filter.maxPrice !== maxPrice) {
-                setFilter({...filter, maxPrice: maxPrice > 0 ? maxPrice : 0})
-              }
+              setFilter({...filter, maxPrice: maxPrice })
             }}
           />
           <span className="input-group-text my-3">.00</span>
@@ -158,17 +150,17 @@ export const ApartmentFilterHeader: React.FunctionComponent<ApartmentFilterHeade
         <div className="input-group mb-3">
           <TextField
             className={"form-control my-3 px-1"}
+            error={(filter.maxPrice && filter.minPrice) ? filter.maxPrice < filter.minPrice : false}
+            helperText={(filter.maxPrice && filter.minPrice && filter.maxPrice < filter.minPrice) ? "Max Price is less than minimum" : ""}
             variant={"outlined"}
             name="minPrice"
             label={"Minimum Price:"}
             type="number"
-            placeholder="Minimum Price"
-            value={(filter && filter.minPrice) ? filter.minPrice : 0}
+            placeholder="Minimum"
+            value={filter.minPrice}
             onChange={(e) => {
               const minPrice = parseFloat(e.target.value);
-              if (filter.minPrice !== minPrice) {
-                setFilter({...filter, minPrice: minPrice > 0 ? minPrice : 0})
-              }
+              setFilter({...filter, minPrice: minPrice })
             }}
           />
           <span className="input-group-text my-3">.00</span>
