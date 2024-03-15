@@ -1,5 +1,4 @@
 import React from "react";
-import { Checkbox, FormControlLabel, InputLabel, MenuItem, Select, TextField } from "@mui/material";
 
 export interface ApartmentFilter {
   bedrooms: string,
@@ -21,150 +20,133 @@ export const ApartmentFilterHeader: React.FC<ApartmentFilterHeaderProps> = (
   {filter, setFilter}
 ) => {
   return <div className={"py-4"}>
-    <div className={"row py-2 align-content-between"}>
-      <div className={"col align-content-around"}>
-        <TextField
-          variant={"standard"}
+    <div className={"input-group py-2"}>
+      <div className={"col px-2 input-group"}>
+        <span className={"input-group-text"}>Filter:</span>
+        <input
+          className={"form-control"}
           name="filter"
-          label={"Filter:"}
           type="text"
-          placeholder="Description contains..."
+          placeholder="Description"
           value={filter.description}
           onChange={e=> setFilter({...filter, description: e.target.value})}
         />
       </div>
-      <div className={"col"}>
-        <FormControlLabel
-          value={filter.hasParking}
-          control={
-            <Checkbox
-              className={"px-2"}
-              name="parkingFilter"
-              onChange={e=> setFilter({...filter, hasParking: e.target.checked})}
-            />}
-          label={"has parking"}
-          labelPlacement="end"
-        />
+      <div className={"col px-2 input-group"}>
+        <span className={"input-group-text"}>Has Parking:</span>
+        <input
+          type="checkbox"
+          className={"m-2"}
+          value={filter.hasParking.toString()}
+          name={"hasParkingCheckbox"}
+          onChange={e=> setFilter({...filter, hasParking: e.target.checked})}/>
       </div>
     </div>
-    <div className={"row py-3"}>
-      <div className={"col"}>
-        <InputLabel variant="standard" htmlFor="bedrooms-label">Bedrooms:</InputLabel>
-        <Select
+
+    <div className={"input-group py-2"}>
+      <div className={"col px-2 input-group"}>
+        <span className={"input-group-text"}>Bedrooms:</span>
+        <select
           className={"form-select form-select-sm"}
-          value={filter.bedrooms}
-          onChange={e => setFilter({...filter, bedrooms: e.target.value})}
+          name={"select-bedrooms"}
           defaultValue={"0+"}
-          labelId={'bedrooms-label'}
-          variant={"outlined"}
-        >
-          <MenuItem value={"0+"}>Any</MenuItem>
-          <MenuItem value={"1"}>1</MenuItem>
-          <MenuItem value={"1+"}>1+</MenuItem>
-          <MenuItem value={"2"}>2</MenuItem>
-          <MenuItem value={"2+"}>2+</MenuItem>
-          <MenuItem value={"3"}>3</MenuItem>
-          <MenuItem value={"3+"}>3+</MenuItem>
-          <MenuItem value={"4"}>4</MenuItem>
-          <MenuItem value={"4+"}>4+</MenuItem>
-        </Select>
+          value={filter.bedrooms}
+          onChange={e => setFilter({...filter, bedrooms: e.target.value})}>
+          <option value={"0+"}>Any</option>
+          <option value={"1"}>1</option>
+          <option value={"1+"}>1+</option>
+          <option value={"2"}>2</option>
+          <option value={"2+"}>2+</option>
+          <option value={"3"}>3</option>
+          <option value={"3+"}>3+</option>
+          <option value={"4"}>4</option>
+          <option value={"4+"}>4+</option>
+        </select>
       </div>
-      <div className={"col"}>
-        <InputLabel variant="standard" id="bathrooms-label">Bathrooms:</InputLabel>
-        <Select
+      <div className={"col px-2 input-group"}>
+        <label className={"input-group-text"}>Bathrooms:</label>
+        <select
           className={"form-select form-select-sm"}
+          name={"select-bathrooms"}
+          defaultValue={"0+"}
           value={filter.bathrooms}
-          onChange={e=> setFilter({...filter, bathrooms: e.target.value})}
-          labelId={"bathrooms-label"}
-          variant={"outlined"}>
-          <MenuItem value={"0+"} selected={true}>Any</MenuItem>
-          <MenuItem value={"1"}>1</MenuItem>
-          <MenuItem value={"1+"}>1+</MenuItem>
-          <MenuItem value={"2"}>2</MenuItem>
-          <MenuItem value={"2+"}>2+</MenuItem>
-          <MenuItem value={"3"}>3</MenuItem>
-          <MenuItem value={"3+"}>3+</MenuItem>
-          <MenuItem value={"4"}>4</MenuItem>
-          <MenuItem value={"4+"}>4+</MenuItem>
-        </Select>
+          onChange={e => setFilter({...filter, bathrooms: e.target.value})}>
+          <option value={"0+"}>Any</option>
+          <option value={"1"}>1</option>
+          <option value={"1+"}>1+</option>
+          <option value={"2"}>2</option>
+          <option value={"2+"}>2+</option>
+          <option value={"3"}>3</option>
+          <option value={"3+"}>3+</option>
+          <option value={"4"}>4</option>
+          <option value={"4+"}>4+</option>
+        </select>
       </div>
     </div>
-    <div className={"row py-2"}>
-      <div className={"col"}>
-        <div className="input-group mb-3">
-          <TextField
-            className={"form-control my-3 px-1"}
-            error={(filter.maxArea && filter.minArea) ? filter.maxArea < filter.minArea : false }
-            helperText={(filter.maxArea && filter.minArea && filter.maxArea < filter.minArea) ? "Max Area is less than minimum" : ""}
-            variant={"outlined"}
-            label={"Maximum Area:"}
-            name="maxArea"
-            type="number"
-            placeholder="Maximum"
-            value={filter.maxArea ? filter.maxArea : undefined}
-            onChange={(e) => {
-              const maxArea = isNaN(parseFloat(e.target.value)) ? undefined : parseFloat(e.target.value);
-              setFilter({...filter, maxArea: maxArea })
-            }}
-          />
-          <span className="input-group-text my-3">.00</span>
-        </div>
-        <div className="input-group mb-3">
-          <TextField
-            className={"form-control my-3 px-1"}
-            error={(filter.maxArea && filter.minArea) ? filter.maxArea < filter.minArea : false}
-            helperText={(filter.maxArea && filter.minArea && filter.maxArea < filter.minArea) ? "Max Area is less than minimum" : ""}
-            variant={"outlined"}
-            label={"Minimum Area:"}
-            name="minArea"
-            type="number"
-            placeholder="Minimum"
-            value={(filter.minArea ? filter.minArea : undefined)}
-            onChange={(e) => {
-              const minArea = isNaN(parseFloat(e.target.value)) ? undefined : parseFloat(e.target.value);
-              setFilter({...filter, minArea: minArea })
-            }}
-          />
-          <span className="input-group-text my-3">.00</span>
-        </div>
+
+    <div className={"input-group py-2"}>
+      <div className={"col px-2 input-group"}>
+        <span className={"input-group-text"}>Maximum Area:</span>
+        <input
+          className={"form-control px-1"}
+          type="number"
+          name={"maxArea"}
+          value={filter.maxArea}
+          onChange={(e) => {
+            const maxArea = isNaN(parseFloat(e.target.value)) || parseFloat(e.target.value) < 0 ? undefined : parseFloat(e.target.value);
+            setFilter({...filter, maxArea: maxArea })
+          }}
+          placeholder={"0"}
+        />
+        <span className="input-group-text">.00</span>
       </div>
-      <div className={"col"}>
-        <div className="input-group mb-3">
-          <TextField
-            className={"form-control my-3 px-1"}
-            error={(filter.maxPrice && filter.minPrice) ? filter.maxPrice < filter.minPrice : false}
-            helperText={(filter.maxPrice && filter.minPrice && filter.maxPrice < filter.minPrice) ? "Max Price is less than minimum" : ""}
-            variant={"outlined"}
-            name="maxPrice"
-            label={"Maximum Price:"}
-            type="number"
-            placeholder="Maximum"
-            value={filter.maxPrice}
-            onChange={(e) => {
-              const maxPrice = parseFloat(e.target.value);
-              setFilter({...filter, maxPrice: maxPrice })
-            }}
-          />
-          <span className="input-group-text my-3">.00</span>
-        </div>
-        <div className="input-group mb-3">
-          <TextField
-            className={"form-control my-3 px-1"}
-            error={(filter.maxPrice && filter.minPrice) ? filter.maxPrice < filter.minPrice : false}
-            helperText={(filter.maxPrice && filter.minPrice && filter.maxPrice < filter.minPrice) ? "Max Price is less than minimum" : ""}
-            variant={"outlined"}
-            name="minPrice"
-            label={"Minimum Price:"}
-            type="number"
-            placeholder="Minimum"
-            value={filter.minPrice}
-            onChange={(e) => {
-              const minPrice = parseFloat(e.target.value);
-              setFilter({...filter, minPrice: minPrice })
-            }}
-          />
-          <span className="input-group-text my-3">.00</span>
-        </div>
+      <div className={"col px-2 input-group"}>
+        <span className={"input-group-text"}>Maximum Price:</span>
+        <input
+          className={"form-control px-1"}
+          type="number"
+          name={"maxPrice"}
+          value={filter.maxPrice}
+          onChange={(e) => {
+            const maxPrice = isNaN(parseFloat(e.target.value)) || parseFloat(e.target.value) < 0 ? undefined : parseFloat(e.target.value);
+            setFilter({...filter, maxPrice: maxPrice })
+          }}
+          placeholder={"0"}
+        />
+        <span className="input-group-text">.00</span>
+      </div>
+    </div>
+
+    <div className={"input-group py-2"}>
+      <div className={"col px-2 input-group"}>
+        <span className={"input-group-text"}>Minimum Area:</span>
+        <input
+          className={"form-control px-1"}
+          type="number"
+          name={"minArea"}
+          value={filter.minArea}
+          onChange={(e) => {
+            const minArea = isNaN(parseFloat(e.target.value)) || parseFloat(e.target.value) < 0 ? undefined : parseFloat(e.target.value);
+            setFilter({...filter, minArea: minArea })
+          }}
+          placeholder={"0"}
+        />
+        <span className="input-group-text">.00</span>
+      </div>
+      <div className={"col px-2 input-group"}>
+        <span className={"input-group-text"}>Minimum Price:</span>
+        <input
+          className={"form-control px-1"}
+          type="number"
+          name={"minPrice"}
+          value={filter.minPrice}
+          onChange={(e) => {
+            const minPrice = isNaN(parseFloat(e.target.value)) || parseFloat(e.target.value) < 0 ? undefined : parseFloat(e.target.value);
+            setFilter({...filter, minPrice: minPrice })
+          }}
+          placeholder={"0"}
+        />
+        <span className="input-group-text">.00</span>
       </div>
     </div>
   </div>

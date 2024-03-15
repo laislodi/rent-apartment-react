@@ -1,21 +1,21 @@
 import React from "react";
-import { Button } from "@mui/material";
 import { ROUTE_CONSTANTS } from "../resources/routes";
+import { Link } from "react-router-dom";
 
 
 export const LoginMenu: React.FunctionComponent = () => {
   return(
     <div className={"navbar navbar-brand"} >
-      <Button
-        className={"bg-body-tertiary text-primary fw-bold text-capitalize mx-1"}
-        href={ROUTE_CONSTANTS.LOGIN}>
+      <Link
+        className={"btn btn-dark mx-1"}
+        to={ROUTE_CONSTANTS.LOGIN}>
         Login
-      </Button>
-      <Button
-        className={"bg-body-tertiary text-black fw-bold text-capitalize mx-1"}
-        href={ROUTE_CONSTANTS.LOGIN}>
+      </Link>
+      <Link
+        className={"btn btn-group bg-secondary-subtle mx-1"}
+        to={ROUTE_CONSTANTS.LOGIN}>
         Sign up
-      </Button>
+      </Link>
     </div>
   );
 };
