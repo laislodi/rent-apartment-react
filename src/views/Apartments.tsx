@@ -10,4 +10,4 @@ export const Apartments: React.FunctionComponent = () => {
       <ApartmentTileDetails />
     </div>
   );
-}
+};

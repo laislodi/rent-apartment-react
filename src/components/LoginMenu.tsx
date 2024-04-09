@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { ROUTE_CONSTANTS } from "../resources/routes";
 import { Link } from "react-router-dom";
 import { getAuthToken } from "../queries/auth";
