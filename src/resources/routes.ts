@@ -3,6 +3,6 @@
 export const ROUTE_CONSTANTS = {
     HOME: "home",
     LOGIN: "login",
-    SIGNUP: "signup",
+    SIGNUP: "register",
     APARTMENTS: "apartments",
 };
