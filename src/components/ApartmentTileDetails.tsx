@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Apartment } from "../queries/types";
-import { ApartmentCard } from "./apartment-card";
-import { ApartmentFilter, ApartmentFilterHeader } from "./apartment-filter-header";
+import { ApartmentCard } from "./ApartmentCard";
+import { ApartmentFilter, ApartmentFilterHeader } from "./ApartmentFilterHeader";
 
 export const ApartmentTileDetails: React.FunctionComponent = () => {
   // const allApartmentQueryFn = async ({ queryKey }) => {
@@ -19,7 +19,7 @@ export const ApartmentTileDetails: React.FunctionComponent = () => {
 
 
   React.useEffect(() => {
-    let url = `http://localhost:8080/apartments`;
+    let url = `/apartments`;
     axios.get(url, {
       params: filter
     }).then((res) => {

@@ -29,7 +29,12 @@ export const ApartmentFilterHeader: React.FC<ApartmentFilterHeaderProps> = (
           type="text"
           placeholder="Description"
           value={filter.description}
-          onChange={e=> setFilter({...filter, description: e.target.value})}
+          onChange={e=> {
+            if (e.target.value.includes("\|\{\}\[\]")) {
+              console.log(e.target.value);
+            }
+            setFilter({...filter, description: e.target.value})}
+        }
         />
       </div>
       <div className={"col px-2 input-group"}>
