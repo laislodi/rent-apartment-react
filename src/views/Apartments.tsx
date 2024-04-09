@@ -1,5 +1,5 @@
 import React from "react";
-import { ApartmentTileDetails } from "../components/apartment-tile-details";
+import { ApartmentTileDetails } from "../components/ApartmentTileDetails";
 
 
 export const Apartments: React.FunctionComponent = () => {
@@ -10,4 +10,4 @@ export const Apartments: React.FunctionComponent = () => {
       <ApartmentTileDetails />
     </div>
   );
-}
+};

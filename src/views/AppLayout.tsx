@@ -1,6 +1,6 @@
 import React from "react";
-import {Outlet} from "react-router-dom";
-import {MenuNavBar} from "../components/menu-nav-bar";
+import { Outlet } from "react-router-dom";
+import { MenuNavBar } from "../components/MenuNavBar";
 
 export const AppLayout: React.FC = () => {
 return (

@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { ROUTE_CONSTANTS } from "../resources/routes";
-import { LoginMenu } from "./login-menu";
+import { LoginMenu } from "./LoginMenu";
 
 
 export const MenuNavBar: React.FunctionComponent = () => {
