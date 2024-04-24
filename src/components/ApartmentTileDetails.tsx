@@ -17,9 +17,8 @@ export const ApartmentTileDetails: React.FunctionComponent = () => {
     "hasParking": false
   });
 
-
   React.useEffect(() => {
-    let url = `/apartments`;
+    let url = `/api/apartments`;
     axios.get(url, {
       params: filter
     }).then((res) => {
@@ -34,11 +33,10 @@ export const ApartmentTileDetails: React.FunctionComponent = () => {
         setFilter={setFilter}
       />
       <div className={"row"}>
-        {data ? data.map(apartment =>
+        {data && data.map(apartment =>
           <div key={apartment.id} className="col-sm-6 col-md-4 col-lg-2">
             {ApartmentCard({apartment})}
-          </div> ) :
-          <div></div>}
+          </div> )}
       </div>
     </div>
   );

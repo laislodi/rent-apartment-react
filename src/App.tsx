@@ -9,6 +9,7 @@ import { ROUTE_CONSTANTS } from "./resources/routes";
 import { Apartments } from "./views/Apartments";
 import { SignupPage } from "./views/SignupPage";
 import { AuthProvider } from "./utils/AuthContext";
+import { ApartmentPage } from "./views/ApartmentPage";
 
 const queryClient = new QueryClient();
 
@@ -23,6 +24,7 @@ export const App: React.FC = () => {
               <Route path={ROUTE_CONSTANTS.LOGIN} element={<LoginPage />} />
               <Route path={ROUTE_CONSTANTS.SIGNUP} element={<SignupPage />} />
               <Route path={ROUTE_CONSTANTS.APARTMENTS} element={<Apartments />} />
+              <Route path={`${ROUTE_CONSTANTS.APARTMENTS}/:id`} element={<ApartmentPage />} />
               <Route path="*" element={<PageNotFound />} />
             </Route>
           </Routes>
