@@ -30,15 +30,14 @@ export const AuthProvider = ({ children }) => {
         password
       }).then(
       (response) => {
-        console.log("response: ", response)
         setAuthHeader(response.data.token);
         setAuthenticated(true);
         window.alert("Successful Logged in! User: " + username);
-        navigate("/home");
+        navigate("/apartments");
       }).catch(
       (error) => {
         window.alert(error);
-        console.log(error)
+        console.log(error);
       }
     );
   };
@@ -48,7 +47,7 @@ export const AuthProvider = ({ children }) => {
     return axios.post("/register", data).then(res => {
       setAuthHeader(res.data.token);
       window.alert("Successful Registered! User: " + data.username + ". Name: " + data.firstname + " " + data.lastname);
-      navigate("/home");
+      navigate("/apartments");
     }).catch(
       error => {
         window.alert(error);

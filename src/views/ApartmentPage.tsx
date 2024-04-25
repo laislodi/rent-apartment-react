@@ -5,22 +5,33 @@ import { Apartment } from "../queries/types";
 import building from "../resources/building.jpg";
 import { getAuthToken } from "../queries/auth";
 
-
 export const ApartmentPage: React.FunctionComponent = () => {
   const id = useParams();
-  const [apartment, setApartment] = useState<Apartment>();
-  const edit = !!getAuthToken();
+  const [apartment, setApartment] = useState<Apartment>({
+    id: "",
+    description: "",
+    numberOfBedrooms: 0,
+    numberOfBathrooms: 0,
+    hasParking: false,
+    area: 0.0,
+    price: 0.0
+  });
+  const auth = getAuthToken();
+  const edit = !!auth;
 
   React.useEffect(() => {
-    console.log(id.id)
     let url = `/api/apartments/${id.id}`;
-    axios.get(url).then((res) => {
+    axios.get(url).then(res => {
       setApartment(res.data);
     });
   }, [id]);
 
   const editApartment = () => {
-
+    let url = `/api/apartments/${id.id}`;
+    const headers = { Authorization: auth };
+    axios.put(url, apartment, {headers}).then(res => {
+      setApartment(res.data);
+    });
   };
 
   return (
@@ -34,34 +45,63 @@ export const ApartmentPage: React.FunctionComponent = () => {
           <div className={"flex-grow-1 ms-3"}>
             <form onSubmit={editApartment}>
               <div className="mb-3">
-                <label htmlFor={"description"} className="form-label">Description: </label>
+                <label htmlFor={"description"} className="form-label">Description:</label>
                 <div className="input-group">
-                  <textarea disabled={!edit} className="form-control" name="description" value={apartment?.description}/>
+                  <textarea
+                    name="description"
+                    disabled={!edit}
+                    className="form-control"
+                    onChange={e => setApartment({...apartment, description: e.target.value} )}
+                    value={apartment?.description}/>
                 </div>
               </div>
               <div className="mb-3">
-                <label htmlFor={"bedrooms"} className="form-label">Bedrooms: </label>
+                <label htmlFor={"bedrooms"} className="form-label">Bedrooms:</label>
                 <div className="input-group">
-                  <input type={"number"} disabled={!edit} className="form-control" value={apartment?.numberOfBedrooms} />
+                  <input
+                    name={"bedrooms"}
+                    type={"number"}
+                    disabled={!edit}
+                    className="form-control"
+                    onChange={e => setApartment({...apartment, numberOfBedrooms: parseInt(e.target.value)} )}
+                    value={apartment.numberOfBedrooms} />
                 </div>
               </div>
               <div className="mb-3">
-                <label htmlFor={"bathrooms"} className="form-label">Bathrooms: </label>
+                <label htmlFor={"bathrooms"} className="form-label">Bathrooms:</label>
                 <div className="input-group">
-                  <input type={"number"} disabled={!edit} className="form-control" value={apartment?.numberOfBathrooms} />
+                  <input
+                    name={"bathrooms"}
+                    type={"number"}
+                    disabled={!edit}
+                    className="form-control"
+                    onChange={e => setApartment({ ...apartment, numberOfBathrooms: parseInt(e.target.value)} )}
+                    value={apartment.numberOfBathrooms} />
                 </div>
               </div>
               <div className="mb-3">
-                <label htmlFor={"area"} className="form-label">Area: </label>
+                <label htmlFor={"area"} className="form-label">Area:</label>
                 <div className="input-group">
-                  <input disabled={!edit} className="form-control" value={apartment?.area.toFixed(1)} />
+                  <input
+                    name={"area"}
+                    type={"number"}
+                    disabled={!edit}
+                    className="form-control"
+                    onChange={e => setApartment({ ...apartment, area: parseFloat(e.target.value)} )}
+                    value={apartment.area} />
                   <span className="input-group-text">m2</span>
                 </div>
               </div>
               <div className="mb-3">
-                <label htmlFor={"price"} className="form-label">Price: </label>
+                <label htmlFor={"price"} className="form-label">Price:</label>
                 <div className="input-group">
-                  <input disabled={!edit} className="form-control" value={apartment?.price.toFixed(0)} />
+                  <input
+                    name={"price"}
+                    type={"number"}
+                    disabled={!edit}
+                    className="form-control"
+                    onChange={e => setApartment({ ...apartment, price: parseFloat(e.target.value)} )}
+                    value={apartment.price} />
                   <span className="input-group-text">.00</span>
                 </div>
               </div>
