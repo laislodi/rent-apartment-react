@@ -5,4 +5,5 @@ export const ROUTE_CONSTANTS = {
     LOGIN: "login",
     SIGNUP: "register",
     APARTMENTS: "apartments",
+    ADD: "add"
 };

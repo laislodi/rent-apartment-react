@@ -1,10 +1,35 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ROUTE_CONSTANTS } from "../resources/routes";
 import { LoginMenu } from "./LoginMenu";
+import { getAuthToken } from "../queries/auth";
+import { TRole, TUser, USER_ROLE } from "../queries/user";
+import axios from "axios";
 
 
 export const MenuNavBar: React.FunctionComponent = () => {
+  const auth = getAuthToken();
+  const [role, setRole] = useState<TRole>({
+    id: 1,
+    role: "USER"
+  });
+  if (auth !== null) {
+    const headers = { headers: { Authorization: auth } };
+    axios.post<TUser>("/users/user", headers)
+      .then(res => {
+        if (res != null) {
+          setRole(res.data.role);
+        }
+      });
+  }
+
+  useEffect(() => {
+    if (auth != null) {
+      setRole(role);
+    } else {
+      setRole(USER_ROLE)
+    }
+  }, [auth, role]);
 
   return (
     <nav className={"navbar navbar-expand-lg bg-primary-subtle"}>
@@ -23,6 +48,10 @@ export const MenuNavBar: React.FunctionComponent = () => {
             <li className={"nav-item"}>
               <Link to={ROUTE_CONSTANTS.APARTMENTS} className={"navbar-brand"}>Apartments</Link>
             </li>
+            {auth && role?.role === USER_ROLE.role &&
+            <li className={"nav-item"}>
+              <Link to={`${ROUTE_CONSTANTS.APARTMENTS}/${ROUTE_CONSTANTS.ADD}`} className={"navbar-brand"}>Add Apartments</Link>
+            </li>}
           </ul>
         </div>
         <LoginMenu/>
