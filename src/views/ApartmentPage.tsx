@@ -20,14 +20,14 @@ export const ApartmentPage: React.FunctionComponent = () => {
   const edit = !!auth;
 
   React.useEffect(() => {
-    let url = `/api/apartments/${id.id}`;
+    let url = `/apartments/${id.id}`;
     axios.get(url).then(res => {
       setApartment(res.data);
     });
   }, [id]);
 
   const editApartment = () => {
-    let url = `/api/apartments/${id.id}`;
+    let url = `/apartments/${id.id}`;
     const headers = { Authorization: auth };
     axios.put(url, apartment, {headers}).then(res => {
       setApartment(res.data);

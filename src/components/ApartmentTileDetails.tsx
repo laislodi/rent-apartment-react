@@ -18,7 +18,7 @@ export const ApartmentTileDetails: React.FunctionComponent = () => {
   });
 
   React.useEffect(() => {
-    let url = `/api/apartments`;
+    let url = `/apartments`;
     axios.get(url, {
       params: filter
     }).then((res) => {

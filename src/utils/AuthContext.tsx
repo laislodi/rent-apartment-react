@@ -2,14 +2,7 @@ import React, { createContext, FormEvent, useContext, useState } from "react";
 import axios from "axios";
 import { removeAuthHeader, setAuthHeader } from "../queries/auth";
 import { useNavigate } from "react-router-dom";
-
-type RegisterUserInput = {
-  firstname: string,
-  lastname: string,
-  email: string,
-  username: string,
-  password: string
-}
+import { RegisterUserInput, TLogin } from "../queries/user";
 
 const AuthContext = createContext({
   authenticated: false,
@@ -25,7 +18,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = (event: React.FormEvent<HTMLFormElement>, username: string, password: string) => {
     event.preventDefault();
-    axios.post('/login', {
+    axios.post<TLogin>('/auth/login', {
         username,
         password
       }).then(
