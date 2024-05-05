@@ -9,7 +9,7 @@ export const AddApartment: React.FunctionComponent = () => {
 
   const createApartment = (event: React.FormEvent) => {
     event.preventDefault();
-    const headers = { Authorization: auth };
+    const headers = { Authorization: `Bearer ${auth}` };
 
     // using Axios
     axios.post("/apartments/add", apartment, {headers}).then((res) => {
