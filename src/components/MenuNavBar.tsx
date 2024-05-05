@@ -14,7 +14,7 @@ export const MenuNavBar: React.FunctionComponent = () => {
     role: "USER"
   });
   if (auth !== null) {
-    const headers = { headers: { Authorization: auth } };
+    const headers = { headers: { Authorization: `Bearer ${auth}` } };
     axios.post<TUser>("/users/user", headers)
       .then(res => {
         if (res != null) {
