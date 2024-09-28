@@ -9,7 +9,6 @@ import { PageNotFound } from "../views/PageNotFound";
 import { Apartments } from "../views/Apartments";
 import { ApartmentPage } from "../views/ApartmentPage";
 import { AddApartment } from "../views/AddApartment";
-import { RequireAuth } from "./RequireAuth";
 import { AdminRoute } from "./AdminRoute";
 
 
