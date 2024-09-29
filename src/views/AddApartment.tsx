@@ -1,5 +1,5 @@
 import React from "react";
-import { emptyApartment, NewApartment } from "../queries/types";
+import { emptyApartment, NewApartment } from "../queries/apartments";
 import axios from "axios";
 import { getAuthToken } from "../queries/auth";
 
