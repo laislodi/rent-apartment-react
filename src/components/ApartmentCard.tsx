@@ -1,7 +1,7 @@
 import React from "react";
-import {Apartment} from "../queries/types";
-import building from "../resources/building.jpg";
-import {Link} from "react-router-dom";
+import { Apartment } from "../queries/apartments";
+import { Link } from "react-router-dom";
+import { ImageCarousel } from "./ImageCarousel";
 
 export interface ApartmentCardProps {
   apartment: Apartment
@@ -10,9 +10,7 @@ export interface ApartmentCardProps {
 export const ApartmentCard: React.FunctionComponent<ApartmentCardProps> = ({apartment}) => {
   return (
     <div className={"card "}>
-      <Link className={"text-reset"} to={apartment.id}>
-        <img className={"card-img-top"} src={building} alt="Building"/>
-      </Link>
+      <ImageCarousel apartmentId={apartment.id}/>
       <div className={"card-body"}>
         <Link className={"text-reset text-decoration-none placeholder-wave"} to={`${apartment.id}`}>
           <h5 className={"card-title"}>

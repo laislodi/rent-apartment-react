@@ -1,9 +1,9 @@
 import React, { Fragment, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import { Apartment } from "../queries/types";
-import building from "../resources/building.jpg";
+import { Apartment } from "../queries/apartments";
 import { getAuthToken } from "../queries/auth";
+import {ImageCarousel} from "../components/ImageCarousel";
 
 export const ApartmentPage: React.FunctionComponent = () => {
   const id = useParams();
@@ -40,7 +40,7 @@ export const ApartmentPage: React.FunctionComponent = () => {
         <h4 className={"text-center"}>This is the Apartment Page!</h4>
         <div className={"d-flex"}>
           <div className={"flex-shrink-0"} style={{height: "300px", width: "300px"}}>
-            <img style={{maxHeight: "100%", maxWidth: "90%"}} src={building} alt="Building"/>
+            <ImageCarousel apartmentId={apartment.id} />
           </div>
           <div className={"flex-grow-1 ms-3"}>
             <form onSubmit={editApartment}>

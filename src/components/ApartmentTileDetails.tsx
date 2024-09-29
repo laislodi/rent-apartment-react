@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Apartment } from "../queries/types";
+import { Apartment } from "../queries/apartments";
 import { ApartmentCard } from "./ApartmentCard";
 import { ApartmentFilter, ApartmentFilterHeader } from "./ApartmentFilterHeader";
 
